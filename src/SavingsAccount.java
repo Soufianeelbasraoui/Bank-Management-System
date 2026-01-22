@@ -12,7 +12,6 @@ public class SavingsAccount extends Account {
     public void calculInterest() {
         double interest = getSolde() * interestRate;
         setSolde(getSolde() + interest);
-
         System.out.println("Des intérêts d'une valeur de " + interest + " ont été ajoutés. Nouveau solde : " + getSolde());
     }
 

@@ -14,7 +14,7 @@ public class Bank {
     public void ajouterCompt(Account a){
         accounts.add(a);
     }
-    // ethode supprimer un compte
+    //methode supprimer un compte
     public void supprimerCompt(String acNum) {
         Account comptSupprimer = findAccount(acNum);
         if (comptSupprimer != null) {
@@ -24,8 +24,30 @@ public class Bank {
          System.out.println("Le compte n'existe pas !");
         }
     }
+    // methode Transfert d’argent entre comptes
+    public void transfertDargent(String sourceNum, String dstNum, double montant) {
+        Account Comptesource = findAccount(sourceNum);
+        Account compteDst = findAccount(dstNum);
+        if (Comptesource == null || compteDst == null) {
+            System.out.println("Le compte source ou le compte destination est introuvable !");
+            return;
+        }
+        if (montant <= 0) {
+            System.out.println("Le montant doit être positif !");
+            return;
+        }
+        if (montant > Comptesource.getSolde()) {
+            System.out.println("Solde insuffisant !");
+            return;
+        }
 
-    //methode afficher Les Comptes
+        Comptesource.retirer(montant);
+        compteDst.deposer(montant);
+
+        System.out.println("Transfert effectué avec succès !");
+    }
+
+//methode afficher Les Comptes
 //   public void afficherLesComptes() {
 //        for (Client c : clients) {
 //            for (Account a : accounts) {
@@ -46,16 +68,13 @@ public class Bank {
                     } else {
                         typeCompte = "Compte Courant";
                     }
-
                     System.out.println(
                             "Client: " + c.getNom() + " | Type: " + typeCompte + " | Compte: " + a.getAccountNumber() + " | Solde: " + a.getSolde());
                 }
             }
         }
     }
-
-
-
+ //methode chercher de client
     public Client chercherClient(String clientNumber) {
         for (Client c : clients) {
             if (c.getClientNumber().equals(clientNumber)) {
@@ -64,7 +83,7 @@ public class Bank {
         }
         return null;
     }
-
+//methode chercher Account
     public Account findAccount(String numero) {
         for (Account a : accounts) {
             if (a.getAccountNumber().equals(numero)) {

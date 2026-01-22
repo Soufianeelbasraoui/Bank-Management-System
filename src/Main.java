@@ -15,42 +15,56 @@ public class Main {
               System.out.println("6.Consulter le solde: ");
               System.out.println("7.Creer un Compte épargne ");
               System.out.println("8.Supprimer un compte: " );
-              System.out.println("9.Quitter le programe: ");
+              System.out.println("9.Transfert d’argent entre comptes");
+              System.out.println("10.Quitter le programe: ");
               System.out.println("Choisissez une option : ");
 
               int choix = s.nextInt();
-              if (choix == 9) {
+              if (choix == 10) {
                   System.out.println(" Au revoir !");
                   break;
               }
               switch (choix){
                   case 1:
                       System.out.println("Nom: ");
-                      String nom=s.next();
+                      String nom = s.next();
                       System.out.print("Numéro client : ");
-                      String clientNumber=s.next();
-                      maBanque.ajouterClients(new Client(nom,clientNumber));
-                      System.out.println("client ajouter avec success");
+                      String clientNumber = s.next();
+                      Client cln = maBanque.chercherClient(clientNumber);
+
+                      if (cln == null) {
+                          maBanque.ajouterClients(new Client(nom, clientNumber));
+                          System.out.println("Client ajouté avec succès");
+                      } else {
+                          System.out.println("Le client existe déjà");
+                      }
                       break;
+
 
                   case 2:
                       System.out.print("Numero client : ");
                       String cl = s.next();
-
                       Client client = maBanque.chercherClient(cl);
                       if (client != null) {
                           System.out.print("Numéro compte : ");
                           String acc = s.next();
-
-                          System.out.print("Solde initial : ");
-                          double solde = s.nextDouble();
-                          maBanque.ajouterCompt(new Account(acc, solde, cl));
-                          System.out.println("Compte créé avec succès !");
+                          Account account = maBanque.findAccount(acc);
+                          if (account == null) {
+                              System.out.print("Solde initial : ");
+                              double solde = s.nextDouble();
+                              if (solde > 0) {
+                                  maBanque.ajouterCompt(new Account(acc, solde, cl));
+                                  System.out.println("Compte créé avec succès !");
+                              } else {
+                                  System.out.println("Le solde initial doit être positif !");
+                              }
+                          } else {
+                              System.out.println("Le compte existe déjà !");
+                          }
                       } else {
                           System.out.println("Client introuvable !");
                       }
                       break;
-
 
                   case 3:
                       System.out.print("Numero de compte pour Déposer : ");
@@ -89,8 +103,8 @@ public class Main {
                       else {
                         System.out.println("Compte introuvable!");
                       }
-
                       break;
+
                   case 7:
                       System.out.println("Numero de client: ");
                       String nCl=s.next();
@@ -98,22 +112,38 @@ public class Main {
                       if (client1 !=null){
                           System.out.println("Numero Compte: ");
                           String nAcc=s.next();
-                          System.out.println("Solde initial: ");
-                          double sd=s.nextDouble();
-                          System.out.println("taux d’intérêt: ");
-                          double tauxsd=s.nextDouble()/100;
-                          SavingsAccount sav=new SavingsAccount(nAcc,sd,nCl,tauxsd);
-                          maBanque.ajouterCompt(sav);
-                          System.out.println("le Compte  epargne cree avec succes  ");
+                           Account account=maBanque.findAccount(nAcc);
+                           if (account == null){
+                               System.out.println("Solde initial: ");
+                               double sd=s.nextDouble();
+                               System.out.println("taux d’intérêt: ");
+                               double tauxsd=s.nextDouble()/100;
+                               SavingsAccount sav=new SavingsAccount(nAcc,sd,nCl,tauxsd);
+                               maBanque.ajouterCompt(sav);
+                               System.out.println("le Compte  epargne cree avec succes  ");
+                           }
+                           else {
+                               System.out.println("le compte deja existe");
+                           }
                       }
                       else {
                           System.out.println("le compte n'est pas trouver!");
                       }
                       break;
+
                   case 8:
                       System.out.print("Numero du compte a supprimer : ");
                       String numCompte = s.next();
                       maBanque.supprimerCompt(numCompte);
+                      break;
+                  case 9:
+                      System.out.println("Enter Numero du compte source: ");
+                      String ncs=s.next();
+                      System.out.println("Enter Numero du compte destination: ");
+                      String ncd=s.next();
+                      System.out.println("le Montant Transfer: ");
+                      double mnt=s.nextDouble();
+                      maBanque.transfertDargent(ncs,ncd,mnt);
                       break;
 
                   default:
