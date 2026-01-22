@@ -47,16 +47,6 @@ public class Bank {
         System.out.println("Transfert effectué avec succès !");
     }
 
-//methode afficher Les Comptes
-//   public void afficherLesComptes() {
-//        for (Client c : clients) {
-//            for (Account a : accounts) {
-//                if (a.getClientNumber().equals(c.getClientNumber())) {
-//                    System.out.println("Client: " + c.getNom() + " | Compte: " + a.getAccountNumber() + " | Solde: " + a.getSolde());
-//                }
-//            }
-//        }
-//    }
     // methode afficher les comptes
     public void afficherLesComptes() {
         for (Client c : clients) {
