@@ -104,6 +104,7 @@ public class Main {
                         System.out.println("Compte introuvable!");
                       }
                       break;
+
                   case 7:
                       System.out.println("Numero de client: ");
                       String nCl = s.next();
@@ -117,7 +118,6 @@ public class Main {
                               double sd = s.nextDouble();
                               System.out.println("Taux d’intérêt (%): ");
                               double tauxsd = s.nextDouble() / 100;
-
                               SavingsAccount sav = new SavingsAccount(nAcc, sd, nCl, tauxsd);
 
                               maBanque.ajouterCompt(sav);

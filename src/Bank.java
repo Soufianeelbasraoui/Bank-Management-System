@@ -16,14 +16,19 @@ public class Bank {
     }
     //methode supprimer un compte
     public void supprimerCompt(String acNum) {
-        Account comptSupprimer = findAccount(acNum);
-        if (comptSupprimer != null) {
-         accounts.remove(comptSupprimer);
-         System.out.println("Compte supprimé !");
+        Account compteSupprimer = findAccount(acNum);
+        if (compteSupprimer != null) {
+            if (compteSupprimer.getSolde() > 0) {
+                System.out.println("impossible de supprimer le compte : solde non nul ("+ compteSupprimer.getSolde() + ")");
+            } else {
+                accounts.remove(compteSupprimer);
+                System.out.println("compte supprimé avec succès !");
+            }
         } else {
-         System.out.println("Le compte n'existe pas !");
+            System.out.println("Le compte n'existe pas !");
         }
     }
+
     // methode Transfert d’argent entre comptes
     public void transfertDargent(String sourceNum, String dstNum, double montant) {
         Account Comptesource = findAccount(sourceNum);
