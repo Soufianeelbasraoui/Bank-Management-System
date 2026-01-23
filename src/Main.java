@@ -104,30 +104,32 @@ public class Main {
                         System.out.println("Compte introuvable!");
                       }
                       break;
-
                   case 7:
                       System.out.println("Numero de client: ");
-                      String nCl=s.next();
-                      Client client1=maBanque.chercherClient(nCl);
-                      if (client1 !=null){
+                      String nCl = s.next();
+                      Client client1 = maBanque.chercherClient(nCl);
+                      if (client1 != null) {
                           System.out.println("Numero Compte: ");
-                          String nAcc=s.next();
-                           Account account=maBanque.findAccount(nAcc);
-                           if (account == null){
-                               System.out.println("Solde initial: ");
-                               double sd=s.nextDouble();
-                               System.out.println("taux d’intérêt: ");
-                               double tauxsd=s.nextDouble()/100;
-                               SavingsAccount sav=new SavingsAccount(nAcc,sd,nCl,tauxsd);
-                               maBanque.ajouterCompt(sav);
-                               System.out.println("le Compte  epargne cree avec succes  ");
-                           }
-                           else {
-                               System.out.println("le compte deja existe");
-                           }
-                      }
-                      else {
-                          System.out.println("le compte n'est pas trouver!");
+                          String nAcc = s.next();
+                          Account account = maBanque.findAccount(nAcc);
+                          if (account == null) {
+                              System.out.println("Solde initial: ");
+                              double sd = s.nextDouble();
+                              System.out.println("Taux d’intérêt (%): ");
+                              double tauxsd = s.nextDouble() / 100;
+
+                              SavingsAccount sav = new SavingsAccount(nAcc, sd, nCl, tauxsd);
+
+                              maBanque.ajouterCompt(sav);
+                              sav.calculInterest();
+                              System.out.println("Compte épargne créé avec succès");
+
+                          } else {
+                              System.out.println("Le compte existe déjà");
+                          }
+
+                      } else {
+                          System.out.println("Client introuvable");
                       }
                       break;
 
